@@ -1,7 +1,4 @@
 import {getRandomNumber, getRandomFloat, getRandomArrayElement, getRandomArray} from './util.js';
-export {createAd};
-
-
 
 // ============= DATA ================
 
@@ -76,7 +73,7 @@ function createAd() {
     offer: {
         title: getRandomArrayElement(AD_TITLE),
         address: `${LATITUDE}, ${LONGITUDE}`,
-        price: getRandomNumber(2000, 50000),
+        price: getRandomNumber(2000, 20000),
         type:  getRandomArrayElement(AD_HOUSE_TYPE),
         rooms: getRandomNumber(1, 5),
         guests: getRandomNumber(1, 10),
@@ -108,3 +105,7 @@ function getAvatarUrls(urlsNumbers) {
 const similarAds = Array.from({length: 10}, createAd);
 
 console.log(similarAds);
+
+
+
+export {createAd, similarAds};
