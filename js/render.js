@@ -2,6 +2,14 @@ import {similarAds} from './data.js';
 
 // ======= ЗАПОЛНЕНИЕ СТРАНИЦЫ ОБЪЯВЛЕНИЯМИ ===========
 
+const HOUSE_TYPE_NAME = {
+  flat: 'Квартира',
+  bungalow: 'Бунгало',
+  house: 'Дом',
+  palace: 'Дворец',
+  hotel: 'Отель',
+}
+
 const adsBlock = document.querySelector('#map-canvas');
 
 const templateFragment = document.querySelector('#card')
@@ -15,7 +23,7 @@ similarAds.forEach((ad) => {
   adElement.querySelector('.popup__title').textContent = ad.offer.title;
   adElement.querySelector('.popup__text--address').textContent = ad.offer.address;
   adElement.querySelector('.popup__text--price').textContent = `${ad.offer.price} ₽/ночь`;
-  adElement.querySelector('.popup__type').textContent = translateHouseType(ad.offer.type);
+  adElement.querySelector('.popup__type').textContent = HOUSE_TYPE_NAME[ad.offer.type];
   adElement.querySelector('.popup__text--capacity').textContent = `${ad.offer.rooms} ${ad.offer.rooms > 1 ? 'комнаты' : 'комната'} для ${ad.offer.guests} ${ad.offer.guests > 1 ? 'гостей' : 'гостя'}`;
   adElement.querySelector('.popup__text--time').textContent = `Заезд после ${ad.offer.checkin}, выезд до ${ad.offer.checkout}`;
   adElement.querySelector('.popup__avatar').src = ad.author.avatar;  
@@ -58,24 +66,5 @@ similarAds.forEach((ad) => {
   similarAdsFragment.appendChild(adElement);
 });
 
-
-
 adsBlock.appendChild(similarAdsFragment);
 
-
-
-// перевести тип жилья 
-function translateHouseType(type) {
-    switch(type) {
-        case 'flat':
-            return 'Квартира';           
-        case 'bungalow':
-            return 'Бунгало';               
-        case 'house':
-            return 'Дом';           
-        case 'palace':
-            return 'Дворец';            
-        case 'hotel':
-            return 'Отель';                        
-    }
-}

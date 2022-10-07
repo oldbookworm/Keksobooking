@@ -1028,3 +1028,23 @@ fieldset {
 .hidden {
   display: none;
 }
+
+
+/*Мои стили*/
+
+.ad-form__error {
+  color:  blue;
+}
+
+#capacity option:disabled {
+  color: rgba(53,53,53, 0.1);  
+}
+
+.ad-form__submit {
+  cursor: pointer;
+}
+
+.ad-form__submit:disabled {
+  color: rgba(53,53,53, 0.1);
+  cursor: pointer;
+}
