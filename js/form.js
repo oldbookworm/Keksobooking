@@ -162,5 +162,7 @@ pristine.addValidator(adPriceInput, validatePriceNumber, getPriceErrorMessage);
 
 
 
+export {activatePage, pristine, adForm, adHouseTypeSelect, adPriceInput};
+
 
 

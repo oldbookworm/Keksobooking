@@ -1,4 +1,3 @@
-import {similarAds} from './data.js';
 
 // ======= ЗАПОЛНЕНИЕ СТРАНИЦЫ ОБЪЯВЛЕНИЯМИ ===========
 
@@ -8,16 +7,15 @@ const HOUSE_TYPE_NAME = {
   house: 'Дом',
   palace: 'Дворец',
   hotel: 'Отель',
-}
+};
 
-const adsBlock = document.querySelector('#map-canvas');
 
 const templateFragment = document.querySelector('#card')
 .content.querySelector('.popup');
 
-const similarAdsFragment = document.createDocumentFragment();
 
-similarAds.forEach((ad) => {
+function createMapCard(ad) {
+
   const adElement = templateFragment.cloneNode(true);
   
   adElement.querySelector('.popup__title').textContent = ad.offer.title;
@@ -63,8 +61,8 @@ similarAds.forEach((ad) => {
     }
   });
 
-  similarAdsFragment.appendChild(adElement);
-});
+  return adElement;
 
-adsBlock.appendChild(similarAdsFragment);
+}
 
+export {createMapCard};

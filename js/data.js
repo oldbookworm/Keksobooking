@@ -3,8 +3,6 @@ import {getRandomNumber, getRandomFloat, getRandomArrayElement, getRandomArray} 
 // ============= DATA ================
 
 const AVATAR_URLS = getAvatarUrls(10);
-const LATITUDE = getRandomFloat(35.65000, 35.70000, 5);
-const LONGITUDE = getRandomFloat(139.70000, 139.80000, 5);
 
 const CHECKIN_CHECKOUT_DATE = [
 '12:00',
@@ -66,6 +64,9 @@ const AD_PHOTOS = [
 
 // создаем объект объявления
 function createAd() {
+  const LATITUDE = getRandomFloat(35.65000, 35.70000, 5);
+  const LONGITUDE = getRandomFloat(139.70000, 139.80000, 5);
+
   return {
     author: {
         avatar: getRandomArrayElement(AVATAR_URLS),
@@ -104,7 +105,7 @@ function getAvatarUrls(urlsNumbers) {
 // создаем массив объявлений
 const similarAds = Array.from({length: 10}, createAd);
 
-console.log(similarAds);
+
 
 
 
