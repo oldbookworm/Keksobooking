@@ -18,21 +18,16 @@ function createMapCard(ad) {
 
   const adElement = templateFragment.cloneNode(true);
   
+
   adElement.querySelector('.popup__title').textContent = ad.offer.title;
   adElement.querySelector('.popup__text--address').textContent = ad.offer.address;
   adElement.querySelector('.popup__text--price').textContent = `${ad.offer.price} ₽/ночь`;
   adElement.querySelector('.popup__type').textContent = HOUSE_TYPE_NAME[ad.offer.type];
   adElement.querySelector('.popup__text--capacity').textContent = `${ad.offer.rooms} ${ad.offer.rooms > 1 ? 'комнаты' : 'комната'} для ${ad.offer.guests} ${ad.offer.guests > 1 ? 'гостей' : 'гостя'}`;
   adElement.querySelector('.popup__text--time').textContent = `Заезд после ${ad.offer.checkin}, выезд до ${ad.offer.checkout}`;
-  adElement.querySelector('.popup__avatar').src = ad.author.avatar;  
-  
-  // проверяем есть ли описание
-  const adDescription = ad.offer.description;
-  if(adDescription.length == 0){
-    adElement.querySelector('.popup__description').classList.add('hidden');
-  } else {
-    adElement.querySelector('.popup__description').textContent = adDescription;
-  }
+  adElement.querySelector('.popup__avatar').src = ad.author.avatar; 
+  adElement.querySelector('.popup__description').textContent = ad.offer.description || '';
+   
 
   // добавляем фотографии аппартаментов:
   const photoBlock = adElement.querySelector('.popup__photos');
@@ -41,16 +36,19 @@ function createMapCard(ad) {
   photoBlock.removeChild(adPhoto);
 
   const adPhotosArr = ad.offer.photos;
+  if(adPhotosArr){
   adPhotosArr.forEach((photo) => {
     const photoElement = adPhoto.cloneNode(true);
     photoElement.src = photo;
     photoBlock.appendChild(photoElement);
   });
-
+}
+  
   // разбираемся со списком удобств:
   const adFeaturesArr = ad.offer.features;
   const adFeaturesList = adElement.querySelectorAll('.popup__feature');
 
+  if(adFeaturesArr) {
   adFeaturesList.forEach((featuresListItem) => {
     const isFeature = adFeaturesArr.some(
     (adFeature) => featuresListItem.classList.contains('popup__feature--' + adFeature)
@@ -60,6 +58,7 @@ function createMapCard(ad) {
         featuresListItem.remove();
     }
   });
+}
 
   return adElement;
 

@@ -1,3 +1,7 @@
+import {postData, createPopup} from './server.js';
+
+// =============== ФОРМА =====================
+
 const adForm = document.querySelector('.ad-form');
 const adFilter = document.querySelector('.map__filters');
 
@@ -44,8 +48,12 @@ const pristine = new Pristine(adForm, {
 
 // блокировка/разблокировка кнопки сабмит
 
-window.addEventListener('load', () => {
+function disableSubmitBtn() {
     adSubmitBtn.disabled = true;
+}
+
+window.addEventListener('load', () => {
+    disableSubmitBtn();
 });
 
 
@@ -161,8 +169,31 @@ function getPriceErrorMessage() {
 pristine.addValidator(adPriceInput, validatePriceNumber, getPriceErrorMessage);
 
 
+// Сброс формы
+function resetForm() {
+    adForm.reset();
+    pristine.reset();
+}
 
-export {activatePage, pristine, adForm, adHouseTypeSelect, adPriceInput};
+// Отправка данных формы на сервер
+adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const formData = new FormData(evt.target);
+    disableSubmitBtn();
+
+    postData(() => {
+        createPopup('success');
+        resetForm();
+    }, 
+    () => {
+        createPopup('error');
+    }, 
+    formData);   
+});
+
+
+
+export {activatePage, disableSubmitBtn, resetForm, pristine, adForm, adHouseTypeSelect, adPriceInput};
 
 
 

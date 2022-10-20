@@ -1,6 +1,7 @@
-import {similarAds} from './data.js';
+
 import {createMapCard} from './render.js';
-import {activatePage, adForm} from './form.js';
+import {activatePage, adForm, pristine, resetForm} from './form.js';
+
 
 // ============ КАРТА ===================
 
@@ -17,7 +18,7 @@ L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
   {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  },
+  }
 ).addTo(map);
 
 
@@ -37,7 +38,7 @@ const mapMainIcon = L.icon({
     {
       draggable: true,
       icon: mapMainIcon,
-    },
+    }
   );
   
   mapMainMarker.addTo(map);
@@ -53,6 +54,7 @@ mapMainMarker.on('moveend', (evt) => {
     const lat = coordinates.lat;
     const lng = coordinates.lng;
     addressInput.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+    pristine.validate(addressInput);
 });
 
 
@@ -83,6 +85,8 @@ formResetBtn.addEventListener('click', () => {
     lng: 139.745438,
   }, 12);
 
+  resetForm();
+
 });
 
 
@@ -95,21 +99,29 @@ const userIcon  = L.icon({
 });
 
 
-similarAds.forEach((elem) => {
-    const lat = elem.location.lat;
-    const lng = elem.location.lng;
+const BALOONS_COUNT = 10;
 
-    const userMarker = L.marker({
+
+function createBaloon(elems) {
+    elems = elems.slice(0, BALOONS_COUNT);       
+
+    elems.forEach((elem) => {
+        const lat = elem.location.lat;
+        const lng = elem.location.lng;
+
+        const userMarker = L.marker({
             lat,
             lng,
         },
         {
             userIcon,
-        },
+        }
     );
 
- userMarker.addTo(map).bindPopup(createMapCard(elem));
+    userMarker.addTo(map).bindPopup(createMapCard(elem));
 
-});
+    });
+}
 
 
+export {createBaloon};

@@ -96,7 +96,7 @@
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
           <label class="ad-form__label" for="address">Адрес (координаты)</label>
-          <input id="address" name="address" type="text" readonly>
+          <input id="address" name="address" type="text" readonly required data-pristine-required-message="Это обязательное поле. Заполните его, перемещая маркер по карте">
         </fieldset>
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="type">Тип жилья</label>
@@ -237,9 +237,17 @@
       <button type="button" class="error__button">Попробовать снова</button>
     </div>
   </template>
+
+  <!-- Сообщение об ошибке загрузки пользовательских объявлений -->
+  <template id="popup-error">
+    <div class="server-error">
+      <p class="server-error__message">Ошибка загрузки объявлений</p>
+    </div>
+  </template>
+
 <script src="nouislider/nouislider.js"></script>
-<script src="leaflet/leaflet.js"></script>
 <script src="pristine/pristine.min.js"></script>
+<script src="leaflet/leaflet.js"></script>
 <script src="js\main.js" type="module"></script>
 </body>
 </html>
