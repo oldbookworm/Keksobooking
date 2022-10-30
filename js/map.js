@@ -99,11 +99,10 @@ const userIcon  = L.icon({
 });
 
 
-const BALOONS_COUNT = 10;
+const markerGroup = L.layerGroup().addTo(map);
 
 
 function createBaloon(elems) {
-    elems = elems.slice(0, BALOONS_COUNT);       
 
     elems.forEach((elem) => {
         const lat = elem.location.lat;
@@ -118,10 +117,10 @@ function createBaloon(elems) {
         }
     );
 
-    userMarker.addTo(map).bindPopup(createMapCard(elem));
+    userMarker.addTo(markerGroup).bindPopup(createMapCard(elem));
 
     });
 }
 
 
-export {createBaloon};
+export {createBaloon, markerGroup};

@@ -1,5 +1,3 @@
-export {getRandomNumber, getRandomFloat, getRandomArrayElement, getRandomArray};
-
 
 // ================== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =============
 
@@ -45,3 +43,15 @@ function getRandomArray(arr, maxLength) {
     return newArr;
 }
 
+// Устранение дребезга
+function debounce (callback, timeoutDelay = 500) {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+
+
+export {getRandomNumber, getRandomFloat, getRandomArrayElement, getRandomArray, debounce};
