@@ -1,15 +1,14 @@
 
-import './render.js';
-import './form.js';
-import './map.js';
 import './slider.js';
-import './server.js';
-import './filter.js';
 import './photo-loader.js';
 
 import {getData, showServerLoadError} from './server.js';
 import {turnFilterOn} from './filter.js';
+import {disablePage, disableSubmitBtn} from './form.js';
+import {loadMap} from './map.js';
 
+// при открытии страница находится в неактивном состоянии
+disablePage();
 
 // загружаем данные с сервера
 function loadUsersAds() {
@@ -21,10 +20,12 @@ function onGetDataSuccess (data) {
     turnFilterOn(data);
   }
 
-// вызываем загрузку данных при загрузке страницы
+// вызываем загрузку данных и карты при загрузке страницы
 window.addEventListener('load', () => {
+    loadMap();  
     loadUsersAds();
+    disableSubmitBtn();
 });
   
-  
+
 

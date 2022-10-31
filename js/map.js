@@ -4,22 +4,26 @@ import {activatePage, adForm, pristine, resetForm} from './form.js';
 
 
 // ============ КАРТА ===================
+const map = L.map('map-canvas');
 
-const map = L.map('map-canvas')
-.on('load', () => {
+const loadMap = () => {
+
+  map.on('load', () => {
     activatePage();
-  })
-.setView({
+    })
+  .setView({
     lat: 35.658581,
     lng: 139.745438,
   }, 12);
 
-L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
   {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }
 ).addTo(map);
+};
+
 
 
 // создаем главный маркер
@@ -123,4 +127,4 @@ function createBaloon(elems) {
 }
 
 
-export {createBaloon, markerGroup};
+export {createBaloon, loadMap, markerGroup};

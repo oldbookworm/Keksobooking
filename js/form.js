@@ -52,10 +52,6 @@ function disableSubmitBtn() {
     adSubmitBtn.disabled = true;
 }
 
-window.addEventListener('load', () => {
-    disableSubmitBtn();
-});
-
 
 adForm.addEventListener('input', (evt) => {
     evt.preventDefault();
@@ -96,31 +92,6 @@ function getRoomErrorMessage() {
 
 pristine.addValidator(adRoomsSelect, validateRoomNumber, getRoomErrorMessage);
 pristine.addValidator(adGuestsSelect, validateRoomNumber);
-
-
-// вариант валидации с блокированием селектов
-// вернуть атрибуты disabled всем элементам крличество мест кроме опции для 1 гостя
-
-// const adGuestsSelect = document.querySelectorAll('#capacity option');
-// adRoomsSelect.addEventListener('change', (evt) => {
-//     let roomNumber = evt.target.value;
-//     if(roomNumber == 100) {
-//          roomNumber = 0;
-//     }
-    
-//     adGuestsSelect.forEach((elem) => {
-//         if(elem.value == roomNumber) {
-//             elem.selected = true;
-//             elem.disabled = false;
-//         } else if(elem.value > roomNumber) {
-//             elem.disabled = true;
-//             elem.selected = false;
-//         } else {
-//             elem.disabled = false;
-//             elem.selected = false;
-//         }        
-//     });
-// });
 
 
 // синхронизируем время заезда и выезда
@@ -193,7 +164,7 @@ adForm.addEventListener('submit', (evt) => {
 
 
 
-export {activatePage, disableSubmitBtn, resetForm, pristine, adForm, adHouseTypeSelect, adPriceInput};
+export {activatePage, disableSubmitBtn, resetForm, disablePage, pristine, adForm, adHouseTypeSelect, adPriceInput};
 
 
 
