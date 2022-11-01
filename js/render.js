@@ -14,7 +14,7 @@ const templateFragment = document.querySelector('#card')
 .content.querySelector('.popup');
 
 
-function createMapCard(ad) {
+const createMapCard = (ad) => {
 
   const adElement = templateFragment.cloneNode(true);
   
@@ -32,6 +32,7 @@ function createMapCard(ad) {
   // добавляем фотографии аппартаментов:
   const photoBlock = adElement.querySelector('.popup__photos');
   const adPhoto = photoBlock.querySelector('.popup__photo');
+  
   // очищаем блок с фотографиями, для того чтобы потом сформировать массив фото в нужном количестве
   photoBlock.removeChild(adPhoto);
 
@@ -62,6 +63,6 @@ function createMapCard(ad) {
 
   return adElement;
 
-}
+};
 
 export {createMapCard};

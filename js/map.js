@@ -90,7 +90,6 @@ formResetBtn.addEventListener('click', () => {
   }, 12);
 
   resetForm();
-
 });
 
 
@@ -106,7 +105,7 @@ const userIcon  = L.icon({
 const markerGroup = L.layerGroup().addTo(map);
 
 
-function createBaloon(elems) {
+const createBaloon = (elems) => {
 
     elems.forEach((elem) => {
         const lat = elem.location.lat;
@@ -124,7 +123,7 @@ function createBaloon(elems) {
     userMarker.addTo(markerGroup).bindPopup(createMapCard(elem));
 
     });
-}
+};
 
 
 export {createBaloon, loadMap, markerGroup};

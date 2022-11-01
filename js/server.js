@@ -4,7 +4,7 @@ const POST_DATA_ADDRESS = 'https://25.javascript.pages.academy/keksobooking';
 
 
 // Получить данные с сервера
-function getData(onSuccess, onError) {
+const getData = (onSuccess, onError) => {
     return fetch(GET_DATA_ADDRESS)
     .then((response) => {
     if (response.ok) {
@@ -18,21 +18,21 @@ function getData(onSuccess, onError) {
     .catch((err) => {
         onError(err);
     });
-}
+};
 
 
 // показать ошибку при загрузке объявлений пользователей
-function showServerLoadError() {
+const showServerLoadError = () => {
     const templateFragment = document.querySelector('#popup-error').content.querySelector('.server-error');
     const messageElement = templateFragment.cloneNode(true);
     const messageParentBlock  = document.querySelector('.map');
 
     messageParentBlock.appendChild(messageElement);
-}
+};
 
 
 // Отправить данные на сервер
-function postData(onSuccess, onError, formData) {
+const postData = (onSuccess, onError, formData) => {
     fetch(POST_DATA_ADDRESS,
     {
       method: 'POST',
@@ -49,11 +49,11 @@ function postData(onSuccess, onError, formData) {
     .catch(() => {
       onError();
     });
-}
+};
 
 
 // сделать одну функцию для показа попапа
-function createPopup(status) {
+const createPopup = (status) => {
     const templateFragment = document.querySelector(`#${status}`).content.querySelector(`.${status}`);
    const messageElement = templateFragment.cloneNode(true);
 
@@ -78,12 +78,7 @@ function createPopup(status) {
    });
    }
 
-    // фича, которой нет в тех задании:
-    //     // setTimeout(() => {
-    //     //     document.body.removeChild(messageElement);
-    //     // }, 5000);
-
-}
+};
 
 
 export {getData, postData, showServerLoadError, createPopup};

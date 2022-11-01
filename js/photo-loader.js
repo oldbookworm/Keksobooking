@@ -2,6 +2,8 @@ import {adForm} from './form.js';
 
 // ====================== ЗАГРУЗКА ФОТОГРАФИИ =========================
 
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+
 const avatarUpload = adForm.querySelector('.ad-form__field');
 const avatarUploadInput = adForm.querySelector('#avatar');
 const avatarPreview = adForm.querySelector('.ad-form-header__preview > img');
@@ -10,8 +12,6 @@ const housePhotoUpload = adForm.querySelector('.ad-form__upload');
 const housePhotoInput = adForm.querySelector('#images');
 const housePhotoPreview = adForm.querySelector('.ad-form__photo');
 
-
-const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
 // проверяем является ли загруженное фотографиями 
 const isValidType = (file) => {

@@ -11,14 +11,14 @@ import {loadMap} from './map.js';
 disablePage();
 
 // загружаем данные с сервера
-function loadUsersAds() {
+const loadUsersAds = () => {
     getData(onGetDataSuccess, showServerLoadError);
-}
+};
 
 // фетчим дату
-function onGetDataSuccess (data) {
+const onGetDataSuccess = (data) => {
     turnFilterOn(data);
-  }
+  };
 
 // вызываем загрузку данных и карты при загрузке страницы
 window.addEventListener('load', () => {

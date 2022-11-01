@@ -4,16 +4,32 @@ import {debounce} from './util.js';
 // ========================= ФИЛЬТР ==============================
 
 const BALOONS_COUNT = 10;
+const INPUT_DEFAULT_VALUE = 'any';
+
+const PRICE_FILTER_RANGE = {
+  low: {
+      begin: 0,
+      end: 10000,
+  },
+  middle: {
+      begin: 10000,
+      end: 50000,
+  },
+  high: {
+      begin: 50000,
+      end: 1000000,
+  },
+};
 
 // массив полученных объявлений для фильтрации
 let usersAds = [];
 
 // зафетченную дату передаем в массив и выводим балуны
-function turnFilterOn (ads) {
+const turnFilterOn = (ads) => {
   usersAds = [...ads];
   createBaloon(usersAds.slice(0, BALOONS_COUNT));
   debounce(sortAds(usersAds));
-}
+};
 
 
 // Фильтры
@@ -27,22 +43,6 @@ const featuresFilterInputs = filterForm.querySelectorAll('.map__checkbox');
 
 
 // функции сортировки
-const INPUT_DEFAULT_VALUE = 'any';
-
-const PRICE_FILTER_RANGE = {
-    low: {
-        begin: 0,
-        end: 10000,
-    },
-    middle: {
-        begin: 10000,
-        end: 50000,
-    },
-    high: {
-        begin: 50000,
-        end: 1000000,
-    },
-};
 
 const houseTypeSort = (ad) => {
     return houseTypeFilterInput.value === ad.offer.type || houseTypeFilterInput.value === INPUT_DEFAULT_VALUE;
@@ -72,7 +72,7 @@ const featuresSort = (ad) => Array.from(featuresFilterInputs)
   });
 
 
-function sortAds(adsArr) {
+const sortAds = (adsArr) => {
     filterForm.addEventListener('change', (evt) => {
         markerGroup.clearLayers();
 
@@ -80,6 +80,6 @@ function sortAds(adsArr) {
 
         createBaloon(sortedResult.slice(0, BALOONS_COUNT));
     });
-}
+};
 
 export {turnFilterOn};

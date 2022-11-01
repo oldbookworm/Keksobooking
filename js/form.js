@@ -2,13 +2,21 @@ import {postData, createPopup} from './server.js';
 
 // =============== ФОРМА =====================
 
+const HOUSE_TYPE_MIN_PRICE = {
+    'bungalow': 0,
+    'flat': 1000,
+    'hotel': 3000,
+    'house': 5000,
+    'palace': 10000,
+};
+
 const adForm = document.querySelector('.ad-form');
 const adFilter = document.querySelector('.map__filters');
 
 const fieldsets = document.querySelectorAll('fieldset');
 const selects = document.querySelectorAll('select');
 
-function disablePage() {
+const disablePage = () => {
     adForm.classList.add('ad-form--disabled');
     adFilter.classList.add('ad-form--disabled');
 
@@ -18,9 +26,9 @@ function disablePage() {
     selects.forEach((select) => {
         select.setAttribute('disabled', true);
     });
-}
+};
 
-function activatePage() {
+const activatePage = () => {
     adForm.classList.remove('ad-form--disabled');
     adFilter.classList.remove('ad-form--disabled');
 
@@ -30,7 +38,7 @@ function activatePage() {
     selects.forEach((select) => {
         select.removeAttribute('disabled');
     });
-}
+};
 
 
 
@@ -46,11 +54,10 @@ const pristine = new Pristine(adForm, {
     errorTextClass: 'ad-form__error'
 });
 
-// блокировка/разблокировка кнопки сабмит
-
-function disableSubmitBtn() {
+// блокировка кнопки сабмит
+const disableSubmitBtn = () => {
     adSubmitBtn.disabled = true;
-}
+};
 
 
 adForm.addEventListener('input', (evt) => {
@@ -70,7 +77,7 @@ const adRoomsSelect = adForm.querySelector('#room_number');
 const adGuestsSelect = adForm.querySelector('#capacity');
 
 
-function validateRoomNumber() {
+const validateRoomNumber = () => {
     let roomSelected = parseInt(adRoomsSelect.value);
     let guestsSelected = parseInt(adGuestsSelect.value);
 
@@ -80,14 +87,14 @@ function validateRoomNumber() {
         roomSelected = 0;
         return roomSelected != guestsSelected ? false : true;
     }   
-}
+};
 
-function getRoomErrorMessage() {
+const getRoomErrorMessage = () => {
     if(adRoomsSelect.value == 100 || adGuestsSelect.value == 0) {
        return "Вы можете забронировать 100 комнат, выбрав опцию &quot;не для гостей&quot;";
     }
        return "Количество гостей не должно превышать количество комнат";
-}
+};
 
 
 pristine.addValidator(adRoomsSelect, validateRoomNumber, getRoomErrorMessage);
@@ -113,38 +120,30 @@ adTimeOutSelect.addEventListener('change', () => {
 const adHouseTypeSelect = adForm.querySelector('#type');
 const adPriceInput = adForm.querySelector('#price');
 
-const houseTypeMinPrice = {
-    'bungalow': 0,
-    'flat': 1000,
-    'hotel': 3000,
-    'house': 5000,
-    'palace': 10000,
-};
-
 adHouseTypeSelect.addEventListener('change', () => {
     let houseTypeValue = adHouseTypeSelect.value;
-    adPriceInput.min = houseTypeMinPrice[houseTypeValue];
-    adPriceInput.placeholder = houseTypeMinPrice[houseTypeValue];
+    adPriceInput.min = HOUSE_TYPE_MIN_PRICE[houseTypeValue];
+    adPriceInput.placeholder = HOUSE_TYPE_MIN_PRICE[houseTypeValue];
 });
 
 
-function validatePriceNumber() {
+const validatePriceNumber = () => {
     return parseInt(adPriceInput.value) >= parseInt(adPriceInput.placeholder) && parseInt(adPriceInput.value) <= parseInt(adPriceInput.max);
-}
+};
 
 
-function getPriceErrorMessage() {
-    return `Минимальная цена за данный тип жилья ${houseTypeMinPrice[adHouseTypeSelect.value]} рублей`;
-}
+const getPriceErrorMessage = () => {
+    return `Минимальная цена за данный тип жилья ${HOUSE_TYPE_MIN_PRICE[adHouseTypeSelect.value]} рублей`;
+};
 
 pristine.addValidator(adPriceInput, validatePriceNumber, getPriceErrorMessage);
 
 
 // Сброс формы
-function resetForm() {
+const resetForm = () => {
     adForm.reset();
     pristine.reset();
-}
+};
 
 // Отправка данных формы на сервер
 adForm.addEventListener('submit', (evt) => {
